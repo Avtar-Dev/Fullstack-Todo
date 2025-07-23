@@ -4,23 +4,22 @@ mongoose.connect(
   "mongodb+srv://avtar92749:avtar92749@cluster0.swa0xjj.mongodb.net/todo-app?retryWrites=true&w=majority&appName=Cluster0"
 );
 
-const newUser = mongoose.Schema({
+const userSchema = mongoose.Schema({
   name: String,
   email: String,
   password: String,
-});
-const loginUser = mongoose.Schema({
-  email: String,
-  password: String,
-});
-const todoData = mongoose.Schema({
-  title: String,
-  text: String,
-  doneOrnot: Boolean,
+  userId: String,
 });
 
-const Admin = mongoose.model("Admin", newUser);
-const User = mongoose.model("User", loginUser);
-const Todo = mongoose.model("Todo", todoData);
+const todoSchema = mongoose.Schema({
+  title: { type: String, required: true },
+  task: { type: String, required: true },
+  userId: { type: String, required: true },
+  completed: Boolean,
+  createdAt: { type: Date, default: Date.now },
+});
 
-module.exports = { Admin, User, Todo };
+const User = mongoose.model("User", userSchema);
+const Todo = mongoose.model("Todo", todoSchema);
+
+module.exports = { User, Todo };
