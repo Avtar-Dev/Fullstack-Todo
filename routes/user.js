@@ -51,3 +51,8 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
+
+// const saltRounds = 10;
+// const hashedPassword = await bcrypt.hash("mypassword123", saltRounds);
+
+//   const isMatch = await bcrypt.compare(password, user.password);

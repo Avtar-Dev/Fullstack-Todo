@@ -12,10 +12,9 @@ function loginMiddleware(req, res, next) {
 
   try {
     const decoded = jwt.verify(jwtToken, JWT_TOKEN);
+    // console.log("decode", decoded);
 
-    // ✅ Attach decoded user info (like userId or email) to req.user
     req.userId = decoded.userId;
-    console.log(decoded);
 
     next();
   } catch (err) {
@@ -27,4 +26,4 @@ function loginMiddleware(req, res, next) {
 
 module.exports = loginMiddleware;
 
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF2dGFyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUzMjU5MDA5fQ.6lum_73czx25kVxxqsdJ7Y798_gdNTk9EQJq8MZK6Lg
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYXJyeUBleGFtcGxlLmNvbSIsInVzZXJJZCI6IjE3NTMzMzczMTEzMTQiLCJpYXQiOjE3NTMzMzczOTN9.v9EYVIsPje5O-PeXRX4V8Y7p0Hw37s8OPJPMbrHBejI
