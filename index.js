@@ -5,6 +5,9 @@ const jwt = require("jsonwebtoken");
 const userRouter = require("./routes/user");
 const todoRouter = require("./routes/todo");
 
+const cors = require("cors");
+
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/user", userRouter);
 app.use("/todo", todoRouter);

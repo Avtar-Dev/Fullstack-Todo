@@ -92,4 +92,25 @@ router.put("/put-todo/:todoId", loginMiddleware, async (req, res) => {
   }
 });
 
+// toggle api
+router.put("/toggle/:id", loginMiddleware, async (req, res) => {
+  const todoId = req.params.id;
+  const userId = req.userId;
+
+  try {
+    const todo = await Todo.findOne({ _id: todoId, userId });
+
+    if (!todo) {
+      return res.status(404).json({ msg: "Todo not found or unauthorized" });
+    }
+
+    todo.completed = !todo.completed;
+    await todo.save();
+
+    res.json({ msg: "Todo completion status updated", todo });
+  } catch (err) {
+    res.status(500).json({ msg: "Internal server error" });
+  }
+});
+
 module.exports = router;
