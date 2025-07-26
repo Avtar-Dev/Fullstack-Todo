@@ -23,6 +23,7 @@ router.post("/signup", async (req, res) => {
   if (checkUser) {
     res.json({
       msg: "User already exists",
+      success: false,
     });
   } else {
     await User.create({
@@ -33,6 +34,7 @@ router.post("/signup", async (req, res) => {
     });
     res.json({
       msg: "User created successfully",
+      success: true,
     });
   }
 });

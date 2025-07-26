@@ -62,7 +62,7 @@ router.delete("/delete-todo/:todoId", loginMiddleware, async (req, res) => {
 });
 
 // Update todo
-router.put("/put-todo/:todoId", loginMiddleware, async (req, res) => {
+router.put("/edit-todo/:todoId", loginMiddleware, async (req, res) => {
   const todoId = req.params.todoId;
   const userId = req.userId;
 
