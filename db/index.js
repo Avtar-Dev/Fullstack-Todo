@@ -15,7 +15,9 @@ const todoSchema = mongoose.Schema({
   title: { type: String, required: true },
   task: { type: String, required: true },
   userId: { type: String, required: true },
-  completed: Boolean,
+  completed: { type: Boolean, default: false },
+  scheduledTime: { type: Date },
+  fcmToken: { type: String },
   createdAt: { type: Date, default: Date.now },
 });
 

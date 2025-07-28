@@ -5,24 +5,28 @@ const router = express.Router();
 
 // Upload Todo
 router.post("/post-todo", loginMiddleware, async (req, res) => {
-  const title = req.body.title;
-  const task = req.body.task;
-  const completed = req.body.completed;
-
+  const { title, task, completed, scheduledTime, fcmToken } = req.body;
   const userId = req.userId;
 
-  const newTodo = await Todo.create({
-    title,
-    task,
-    completed,
-    userId,
-  });
+  try {
+    const newTodo = await Todo.create({
+      title,
+      task,
+      completed,
+      scheduledTime: scheduledTime ? new Date(scheduledTime) : null,
+      fcmToken,
+      userId,
+    });
 
-  res.json({
-    msg: "Todo created successfully",
-    todo: newTodo,
-    userId: userId,
-  });
+    res.json({
+      msg: "Todo created successfully",
+      todo: newTodo,
+      userId,
+    });
+  } catch (error) {
+    console.error("Error creating todo:", error);
+    res.status(500).json({ msg: "Failed to create todo", error });
+  }
 });
 
 module.exports = router;
@@ -77,11 +81,11 @@ router.put("/edit-todo/:todoId", loginMiddleware, async (req, res) => {
       return res.status(403).json({ msg: "You are not authorized" });
     }
 
-    const { title, task, completed } = req.body;
+    const { title, task, completed, scheduledTime } = req.body;
 
     const updatedTodo = await Todo.findByIdAndUpdate(
       todoId,
-      { title, task, completed },
+      { title, task, completed, scheduledTime },
       { new: true }
     );
 
